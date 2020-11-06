@@ -67,7 +67,7 @@ export const useStyle = (w, h, scale) => {
         },
         midLineStyle() {
           const width = `${lineWidth}px`
-          const left = `${-wSize / 2}px`
+          const left = `${-lineWidth / 2}px`
           const top = `${-size / 2}px`
           const height = `${size}px`
           return {
