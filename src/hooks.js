@@ -2,6 +2,10 @@ import {
     useState, 
     useEffect
 } from 'react'
+import {
+    divideScale, 
+    sinify
+} from './utils'
 
 export const useAnimatedScale = (scGap = 0.02, delay = 20) => {
     const [scale, setScale] = useState(0)
@@ -46,30 +50,36 @@ export const useDimension = () => {
     }
 }
 
-const sinify = (scale) => Math.sin(scale * Math.PI)
+
 
 export const useStyle = (w, h, scale) => {
+    const sf = sinify(scale)
     const size = Math.min(w, h) / 10
     const position = 'absolute'
     const x = w / 2
     const y = h / 2
     const lineWidth = Math.min(w, h) / 90
     const background = 'indigo'
+    const sf1 = divideScale(sf, 0, parts)
+    const sf2 = divideScale(sf, 1, parts)
+    const sf3 = divideScale(sf, 2, parts)
     return {
         parentStyle() {
             const left = `${x}px`
             const top = `${y}px`
+            const WebkitTransform = `rotate(${90 * sf3}deg)`
             return {
                 left,
                 top,
-                position
+                position,
+                WebkitTransform
             }
         },
         midLineStyle() {
           const width = `${lineWidth}px`
           const left = `${-lineWidth / 2}px`
-          const top = `${-size / 2}px`
-          const height = `${size}px`
+          const top = `${-(size * sf1) / 2}px`
+          const height = `${size * sf1}px`
           return {
               background, 
               left, 
@@ -81,8 +91,8 @@ export const useStyle = (w, h, scale) => {
         },
         hlineStyle(i) {
             const top = `${-size / 2 + size * i}px`
-            const left = `${-size / 2}px`
-            const width = `${size}px`
+            const left = `${-(size * sf2) / 2}px`
+            const width = `${size * sf2}px`
             const height = `${lineWidth}px`
             return {
                 position,
