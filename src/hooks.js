@@ -6,7 +6,7 @@ import {
     divideScale, 
     sinify
 } from './utils'
-
+const parts = 4
 export const useAnimatedScale = (scGap = 0.02, delay = 20) => {
     const [scale, setScale] = useState(0)
     const [animated, setAnimated] = useState(false)
@@ -17,7 +17,7 @@ export const useAnimatedScale = (scGap = 0.02, delay = 20) => {
                 setAnimated(true)
                 let currScale = scale 
                 const interval = setInterval(() => {
-                    currScale += scGap
+                    currScale += (scGap / parts)
                     setScale(currScale)
                     if (currScale > 1) {
                         setScale(0)

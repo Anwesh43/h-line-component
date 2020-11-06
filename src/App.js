@@ -4,6 +4,7 @@ import {
     useAnimatedScale, 
     useDimension
 } from './hooks'
+import HLineComponent from './HLineComponent'
 
 function App() {
   const {w, h} = useDimension()
@@ -11,7 +12,7 @@ function App() {
   return (
     <div className="App">
       <button onClick = {start}>start</button>
-      <p>{scale}</p>
+      <HLineComponent w = {w} h = {h} scale = {scale}></HLineComponent> 
     </div>
   );
 }
